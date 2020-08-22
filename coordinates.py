@@ -4,7 +4,7 @@ import copy as copy
 from mpl_toolkits.mplot3d import Axes3D
 from itertools import product, combinations
 
-# For bcc
+# For bcc 3x3x3
 def cell(n):
 	init1 = np.array([0, 0, 0]) # x, y, z
 	init2 = np.array([0.5, 0.5, 0.5])
@@ -87,13 +87,14 @@ def plotter(mask, coor, title):
 			ax1.plot3D(*zip(s, e), color="blue")
 	
 	#Draw atoms and vacancies
-	ax1.scatter(mask[:, 0], mask[:, 1], mask[:, 2], zdir='z', s=50, c=None, depthshade=False,  color='red')
-	ax1.scatter(coor[:, 0], coor[:, 1], coor[:, 2], zdir='z', s=60, c=None, depthshade=False,  color='khaki')    
+	ax1.scatter(mask[:, 0], mask[:, 1], mask[:, 2],  zdir='z', alpha=1, s=50, c='red')
+	ax1.scatter(coor[:, 0], coor[:, 1], coor[:, 2],  zdir='z', alpha=1, s=60, c="khaki")
+
 
 	#Draw numbers for places 
 	for i in range(0, len(mask)):
 		label = '%d' % (i)
-		#ax1.text(mask[i, 0], mask[i, 1], mask[i, 2], label, zdir='x')
+		ax1.text(mask[i, 0], mask[i, 1], mask[i, 2], label, zdir='x')
 	
 	ax1.view_init(25, -75)
 	ax1.set_title(title)
@@ -110,10 +111,10 @@ def main():
 	mask = cell([3, 3, 3])
 	coor = mask.copy()
 	title = 'none'
-	#coor, title = vac_mono(coor)
+	coor, title = vac_mono(coor)
 	#coor, title = vac_di(coor, 3)
 	#coor, title = vac_tri(coor, 8)
-	coor, title = vac_tetra(coor, 4)
+	#coor, title = vac_tetra(coor, 4)
 	plotter(mask, coor, title)
 	for i in coor:
 		print(*i)
